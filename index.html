@@ -11,6 +11,30 @@
 <meta property="og:description" content="Vends, achète ou échange tes Kamas sur tous les serveurs Dofus et Wakfu, en toute sécurité.">
 <meta property="og:type" content="website">
 <style>
+  body{
+    background: var(--black);
+    color: var(--cream);
+}
+
+/* CSS li kayn déjà... */
+
+.google-btn{
+    margin-left:10px;
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#fff;
+    color:#333;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+}
+
+.google-btn:hover{
+    background:#f2f2f2;
+}
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Work+Sans:wght@400;500;600;700&display=swap');
 
   :root{
@@ -289,6 +313,11 @@
     </nav>
     <a href="#vendre" class="nav-cta">Vendre mes Kamas</a>
     <button type="button" class="admin-link" id="openAdminBtn">Admin</button>
+
+    <button id="googleLoginBtn" class="google-btn">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+    Google
+</button>
   </div>
 </header>
 
@@ -1073,10 +1102,6 @@
         </a>
     </p>
 
-     <button id="googleLoginBtn" class="google-btn">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-        Continuer avec Google
-    </button>
 </div>
 </body>
 </html>
