@@ -21,19 +21,21 @@
 .google-btn{
     margin-left:10px;
     padding:8px 14px;
-    border:none;
+    border:1px solid #8b0e0e;
     border-radius:8px;
     cursor:pointer;
-    background:#fff;
-    color:#333;
+    background:#1c1414;
+    color:#fef6de;
     display:inline-flex;
     align-items:center;
     gap:8px;
     font-weight:600;
+    transition:0.2s;
 }
 
 .google-btn:hover{
-    background:#f2f2f2;
+    background:#8b0e0e;
+    border-color:#ff6a2e;
 }
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Work+Sans:wght@400;500;600;700&display=swap');
 
@@ -315,7 +317,7 @@
     <button type="button" class="admin-link" id="openAdminBtn">Admin</button>
 
     <button id="googleLoginBtn" class="google-btn">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20" style="background:transparent;">
     Google
 </button>
   </div>
@@ -1103,5 +1105,35 @@
     </p>
 
 </div>
+
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7yUkfnkAuZ9j3JsvmmEAAWZi3aWK7zHw",
+    authDomain: "kamaforge.firebaseapp.com",
+    projectId: "kamaforge",
+    storageBucket: "kamaforge.firebasestorage.app",
+    messagingSenderId: "872056683267",
+    appId: "1:872056683267:web:73e0867d6a63914af0c736",
+    measurementId: "G-5YDHCS70B2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+document.getElementById("googleLoginBtn").addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    alert("Bienvenue " + result.user.displayName);
+  } catch (err) {
+    alert(err.message);
+  }
+});
+</script>
 </body>
 </html>
