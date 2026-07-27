@@ -1145,6 +1145,13 @@
   const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 onAuthStateChanged(auth, (user) => {
+  const adminBtn = document.getElementById("openAdminBtn");
+
+if (user && user.email === "Karimxml20@gmail.com") {
+    adminBtn.style.display = "inline-block";
+} else {
+    adminBtn.style.display = "none";
+}
     if (user) {
         document.getElementById("googleLoginBtn").innerHTML = `
             <img src="${user.photoURL}" width="28" height="28"
