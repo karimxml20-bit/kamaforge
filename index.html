@@ -258,8 +258,22 @@
   .order-confirm b{color:var(--gold);}
 
   /* ADMIN */
-  .admin-link{font-size:.78rem; color:var(--cream-dim); border:1px solid var(--line); padding:8px 14px; border-radius:2px; cursor:pointer;}
-  .admin-link:hover{color:var(--ember-bright); border-color:var(--ember);}
+  .admin-link{
+    font-size:.78rem;
+    background:var(--blood);
+    color:#fff;
+    border:1px solid var(--ember);
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.admin-link:hover{
+    background:var(--ember);
+    color:#fff;
+    border-color:var(--ember-bright);
+}
   .admin-overlay{
     position:fixed; inset:0; background:rgba(10,8,8,.85); backdrop-filter:blur(4px);
     display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
@@ -1109,7 +1123,12 @@
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+  import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
   
   const firebaseConfig = {
     apiKey: "AIzaSyB7yUkfnkAuZ9j3JsvmmEAAWZi3aWK7zHw",
@@ -1125,11 +1144,23 @@
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById("googleLoginBtn").innerHTML = `
+            <img src="${user.photoURL}" width="28" height="28"
+                 style="border-radius:50%;vertical-align:middle;margin-right:8px;">
+            ${user.displayName.split(" ")[0]}
+        `;
+    }
+});
 
 document.getElementById("googleLoginBtn").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, provider);
-    alert("Bienvenue " + result.user.displayName);
+    const user = result.user;
+
+    alert("Bienvenue " + user.displayName);
+
   } catch (err) {
     alert(err.message);
   }
