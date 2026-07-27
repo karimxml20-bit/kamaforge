@@ -334,6 +334,10 @@
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20" style="background:transparent;">
     Google
 </button>
+
+    <button id="logoutBtn" class="admin-link" style="display:none;">
+    Logout
+</button>
   </div>
 </header>
 
@@ -1156,22 +1160,21 @@ if (user && user.email.toLowerCase() === "karimxml20@gmail.com") {
     adminBtn.style.display = "none";
 }
     if (user) {
+
+        document.getElementById("logoutBtn").style.display = "inline-block";
+      
         document.getElementById("googleLoginBtn").innerHTML = `
             <img src="${user.photoURL}" width="28" height="28"
                  style="border-radius:50%;vertical-align:middle;margin-right:8px;">
             ${user.displayName.split(" ")[0]}
         `;
     }
+  else {
+    document.getElementById("logoutBtn").style.display = "none";
+}
 });
 
 document.getElementById("googleLoginBtn").addEventListener("click", async () => {
-  
-  if (auth.currentUser) {
-    await signOut(auth);
-    location.reload();
-    return;
-}
-  
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
@@ -1181,6 +1184,11 @@ document.getElementById("googleLoginBtn").addEventListener("click", async () => 
   } catch (err) {
     alert(err.message);
   }
+});
+
+   document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await signOut(auth);
+    location.reload();
 });
 </script>
 </body>
