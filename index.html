@@ -1127,7 +1127,8 @@
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
   
   const firebaseConfig = {
@@ -1162,6 +1163,13 @@ if (user && user.email === "Karimxml20@gmail.com") {
 });
 
 document.getElementById("googleLoginBtn").addEventListener("click", async () => {
+  
+  if (auth.currentUser) {
+    await signOut(auth);
+    location.reload();
+    return;
+}
+  
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
